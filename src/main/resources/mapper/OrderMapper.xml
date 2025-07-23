@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.redis_caffeine.mapper.OrderMapper">
+
+    <!-- 根据ID查询订单 -->
+    <select id="getOrderById" parameterType="Integer" resultType="com.example.redis_caffeine.entity.Order">
+        SELECT
+            id, user_id, voucher_id, pay_type, status, create_time, pay_time, use_time, refund_time, update_time
+        FROM
+            tb_voucher_order
+        WHERE
+            id = #{id}
+    </select>
+
+    <!-- 更新订单 -->
+    <update id="updateOrderById" parameterType="com.example.redis_caffeine.entity.Order">
+        UPDATE tb_voucher_order
+        SET
+            user_id = #{userId},
+            voucher_id = #{voucherId},
+            pay_type = #{payType},
+            status = #{status},
+            pay_time = #{payTime},
+            use_time = #{useTime},
+            refund_time = #{refundTime},
+            update_time = NOW()
+        WHERE
+            id = #{id}
+    </update>
+
+    <!-- 删除订单 -->
+    <delete id="deleteOrderById" parameterType="Integer">
+        DELETE FROM tb_voucher_order WHERE id = #{id}
+    </delete>
+</mapper>
