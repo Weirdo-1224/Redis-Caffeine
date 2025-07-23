@@ -124,6 +124,12 @@ public class OrderServiceImpl implements OrderService {
 
 
     //-----------------------------V3------------------------------------------
+    /**
+     * 根据订单ID获取订单信息
+     * 使用 @DoubleCache 注解，类型为 FULL，会执行完整的缓存操作逻辑
+     * @param id 订单ID
+     * @return 订单对象
+     */
     @Override
     @DoubleCache(cacheName = "order", key = "#id",
             type = CacheType.FULL)
@@ -131,6 +137,11 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.getOrderById(id);
     }
 
+    /**
+     * 更新订单信息
+     * 使用 @DoubleCache 注解，类型为 PUT，会执行缓存更新操作
+     * @param order 订单对象
+     */
     @Override
     @DoubleCache(cacheName = "order", key = "#id",
             type = CacheType.PUT)
@@ -138,6 +149,11 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.updateOrderById(order);
     }
 
+    /**
+     * 根据订单ID删除订单信息
+     * 使用 @DoubleCache 注解，类型为 DELETE，会执行缓存删除操作
+     * @param id 订单ID
+     */
     @Override
     @DoubleCache(cacheName = "order", key = "#id",
             type = CacheType.DELETE)
